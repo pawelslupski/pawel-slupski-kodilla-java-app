@@ -1,6 +1,6 @@
 package com.crud.tasks.trello.client;
 
-import com.crud.tasks.domain.CreatedTrelloCard;
+import com.crud.tasks.domain.CreatedTrelloCardDto;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.trello.config.TrelloConfig;
@@ -23,10 +23,8 @@ public class TrelloClientTest {
 
     @InjectMocks
     private TrelloClient trelloClient;
-
     @Mock
     private RestTemplate restTemplate;
-
     @Mock
     private TrelloConfig trelloConfig;
 
@@ -44,7 +42,6 @@ public class TrelloClientTest {
         trelloBoards[0] = new TrelloBoardDto("test_board", "test_id", new ArrayList<>());
 
         URI uri = new URI("http://test.com/members/speco2006gmailcom/boards?key=test&token=test&fields=name,id&lists=all");
-
         when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(trelloBoards);
 
         //When
@@ -68,17 +65,15 @@ public class TrelloClientTest {
         );
 
         URI uri = new URI("http://test.com/cards?key=test&token=test&name=Test%20task&desc=Test%20Description&pos=top&idList=test_id");
-
-        CreatedTrelloCard createdTrelloCard = new CreatedTrelloCard(
+        CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto(
                 "1",
                 "Test task",
                 "http://test.com"
         );
-
-        when(restTemplate.postForObject(uri, null, CreatedTrelloCard.class)).thenReturn(createdTrelloCard);
+        when(restTemplate.postForObject(uri, null, CreatedTrelloCardDto.class)).thenReturn(createdTrelloCardDto);
 
         //When
-        CreatedTrelloCard newCard = trelloClient.createNewCard(trelloCardDto);
+        CreatedTrelloCardDto newCard = trelloClient.createNewCard(trelloCardDto);
 
         //Then
         Assert.assertEquals("1", newCard.getId());
@@ -89,8 +84,8 @@ public class TrelloClientTest {
     @Test
     public void shouldReturnEmptyList() throws URISyntaxException {
         //Given
-        URI uri = new URI("http://test.com/members/speco2006gmailcom/boards?key=test&token=test&fields=name,id&lists=all");
-
+        URI uri = new URI("http://test.com/members/speco2006gmailcom/boards?key=test&" +
+                "token=test&fields=name,id&lists=all");
         when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(null);
 
         //When
@@ -99,5 +94,4 @@ public class TrelloClientTest {
         //Then
         Assert.assertEquals(0, emptyArray.size());
     }
-
 }

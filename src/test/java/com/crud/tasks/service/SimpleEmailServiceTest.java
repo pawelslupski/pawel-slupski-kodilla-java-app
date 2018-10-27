@@ -16,7 +16,6 @@ public class SimpleEmailServiceTest {
 
     @InjectMocks
     SimpleEmailService simpleEmailService;
-
     @Mock
     JavaMailSender javaMailSender;
 
