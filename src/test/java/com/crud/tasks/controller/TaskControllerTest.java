@@ -135,9 +135,35 @@ public class TaskControllerTest {
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(13L)))
+                .andExpect(jsonPath("$.id", is(13)))
                 .andExpect(jsonPath("$.title", is("confirming task")))
                 .andExpect(jsonPath("$.content", is("v1 update")));
+    }
+
+    @Test
+    public void shouldDeleteTask() throws Exception {
+        //Given
+        TaskDto taskDto = new TaskDto(
+                1L,
+                "new task",
+                "first created test task");
+        Task task = new Task(
+                757L,
+                "new task",
+                "newly created test task");
+
+        Gson gson = new Gson();
+        String jsonContent = gson.toJson(taskDto);
+
+        when(taskMapper.mapToTask(taskDto)).thenReturn(task);
+
+        //When&Then
+        mockMvc.perform(post("/v1/task/createTask").contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(jsonContent))
+                .andExpect(status().is(200));
+        mockMvc.perform(delete("/v1/task/deleteTask?taskId=757").contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().is(200));
     }
 }
 
