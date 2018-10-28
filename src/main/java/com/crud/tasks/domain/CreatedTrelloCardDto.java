@@ -29,5 +29,4 @@ public class CreatedTrelloCardDto {
         this.name = name;
         this.shortUrl = shortUrl;
     }
-
 }

@@ -127,6 +127,7 @@ public class TrelloMapperTest {
     public void shouldMapToDtoBoards() {
         //Given
         List<TrelloList> list = new ArrayList<>();
+
         TrelloList trelloList = new TrelloList(
                 "32",
                 "Test",
