@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class TrelloCardDto {
     private String name;
-    private String pos;
     private String description;
+    private String pos;
     private String listId;
 }
