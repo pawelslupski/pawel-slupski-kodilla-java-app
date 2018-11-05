@@ -55,33 +55,6 @@ public class TrelloClientTest {
     }
 
     @Test
-    public void shouldCreateCard() throws URISyntaxException {
-        //Given
-        TrelloCardDto trelloCardDto = new TrelloCardDto(
-                "Test task",
-                "top",
-                "Test Description",
-                "test_id"
-        );
-
-        URI uri = new URI("http://test.com/cards?key=test&token=test&name=Test%20task&desc=Test%20Description&pos=top&idList=test_id");
-        CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto(
-                "1",
-                "Test task",
-                "http://test.com"
-        );
-        when(restTemplate.postForObject(uri, null, CreatedTrelloCardDto.class)).thenReturn(createdTrelloCardDto);
-
-        //When
-        CreatedTrelloCardDto newCard = trelloClient.createNewCard(trelloCardDto);
-
-        //Then
-        Assert.assertEquals("1", newCard.getId());
-        Assert.assertEquals("Test task", newCard.getName());
-        Assert.assertEquals("http://test.com", newCard.getShortUrl());
-    }
-
-    @Test
     public void shouldReturnEmptyList() throws URISyntaxException {
         //Given
         URI uri = new URI("http://test.com/members/speco2006gmailcom/boards?key=test&" +
