@@ -52,7 +52,7 @@ public class TaskControllerTest {
         when(taskMapper.mapToTaskDto(task)).thenReturn(taskDto);
 
         //When&Then
-        mockMvc.perform(get("/v1/task/getTask?taskId=1").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/tasks/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id", is(1) ))
                 .andExpect(jsonPath("$.title", is("test task")))
@@ -79,7 +79,7 @@ public class TaskControllerTest {
         when(taskMapper.mapToTaskDtoList(taskList)).thenReturn(taskListDto);
 
         //When&Then
-        mockMvc.perform(get("/v1/task/getTasks").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/tasks").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].id", is(1)))
@@ -105,7 +105,7 @@ public class TaskControllerTest {
         when(taskMapper.mapToTask(taskDto)).thenReturn(task);
 
         //When&Then
-        mockMvc.perform(post("/v1/task/createTask").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(post("/v1/tasks").contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andExpect(status().is(200));
@@ -131,7 +131,7 @@ public class TaskControllerTest {
         when(service.saveTask(task)).thenReturn(task);
 
         //When&Then
-        mockMvc.perform(put("/v1/task/updateTask").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(put("/v1/tasks").contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andExpect(status().isOk())
@@ -158,11 +158,11 @@ public class TaskControllerTest {
         when(taskMapper.mapToTask(taskDto)).thenReturn(task);
 
         //When&Then
-        mockMvc.perform(post("/v1/task/createTask").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(post("/v1/tasks").contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andExpect(status().is(200));
-        mockMvc.perform(delete("/v1/task/deleteTask?taskId=757").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/v1/tasks/757").contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().is(200));
     }
 }
