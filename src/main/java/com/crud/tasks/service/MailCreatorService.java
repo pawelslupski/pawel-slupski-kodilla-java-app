@@ -29,7 +29,7 @@ public class MailCreatorService {
 
         Context context = new Context();
         context.setVariable("message", message);
-        context.setVariable("tasks_url", "http://www.localhost:8888/tasks_frontend");
+        context.setVariable("tasks_url", "https://trello.com");
         context.setVariable("button", "Visit website");
         context.setVariable("admin_name", adminConfig.getAdminName());
         context.setVariable("admin_config", adminConfig);
@@ -54,7 +54,7 @@ public class MailCreatorService {
         context.setVariable("message", message);
         context.setVariable("trello_button", "Check out your Trello!");
         context.setVariable("trello_url",
-                            "https://trello.com/login?truid=tr264fb8-4e59-ece3-2882-9adb87ee0aaa&returnUrl=%2F");
+                            "https://trello.com");
         context.setVariable("admin_config", adminConfig);
         context.setVariable("seeYou_message", "See you soon!");
         context.setVariable("company_details", adminConfig.getCompanyName() + "\n" +
